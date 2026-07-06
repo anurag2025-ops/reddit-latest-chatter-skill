@@ -14,7 +14,7 @@ Instead of writing custom Python scrapers, this skill instructs the AI on how to
 
 > 💡 **Pro Tip for Best Results:** Because this skill relies heavily on pulling real-time, unfiltered web data, it performs best when used with AI agents built specifically for live search—such as **Perplexity** or **Grok**. Models with restricted browsing capabilities or heavy web-search latency may struggle to pull the absolute newest posts.
 
-### Approach A: Skill-Compatible Agents (e.g., Perplexity, custom GPTs)
+### Approach A: Skill-Compatible Agents (e.g., Perplexity, Grok, custom GPTs)
 1. Copy the YAML contents from [`skill.yaml`](skill.yaml).
 2. Add it to your agent's custom instructions, skills configuration, or system prompt.
 3. Trigger it naturally: *"Use the reddit-latest-chatter skill to tell me what people are saying about the new iPhone."*
