@@ -3,7 +3,7 @@
 **A prompt template and skill definition for AI agents to monitor real-time Reddit discussions.**
 
 [![AI Skill](https://img.shields.io/badge/Type-AI%20Skill-blue)]()
-[![Compatible with Perplexity](https://img.shields.io/badge/Tested%20On-Perplexity%20%7C%20Claude%20%7C%20GPT--4-success)]()
+[![Tested On](https://img.shields.io/badge/Tested%20On-Perplexity%20%7C%20Grok-success)]()
 
 ## 📖 What is this?
 This repository contains a **skill/prompt template** designed to turn AI agents (like Perplexity, Grok, Claude, or ChatGPT) into expert open-source intelligence (OSINT) monitors. 
