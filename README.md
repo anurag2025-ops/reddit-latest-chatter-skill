@@ -6,7 +6,7 @@
 [![Tested On](https://img.shields.io/badge/Tested%20On-Perplexity%20%7C%20Grok-success)]()
 
 ## 📖 What is this?
-This repository contains a **skill/prompt template** designed to turn AI agents (like Perplexity, Grok, Claude, or ChatGPT) into expert open-source intelligence (OSINT) monitors. 
+This repository contains a **skill/prompt template** designed to turn AI agents (like Perplexity, Grok, Gemini or ChatGPT) into expert open-source intelligence (OSINT) monitors. 
 
 Instead of writing custom Python scrapers, this skill instructs the AI on how to systematically use its built-in web search and browsing tools to pull the freshest, unfiltered public sentiment on any subject directly from Reddit.
 
