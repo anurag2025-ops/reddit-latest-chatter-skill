@@ -1,0 +1,56 @@
+---
+name: reddit-latest-chatter
+description: Use for scraping latest Reddit posts comments and discussions on relevant subjects or subreddits to capture current public chatter trends buzz and opinions — trigger on any request involving latest Reddit conversations recent posts what's trending or being said about a topic
+---
+
+# Reddit Latest Chatter
+
+## Overview
+This skill turns the agent into an expert Reddit monitor that pulls the freshest unfiltered posts, comments, and public sentiment from across Reddit on any subject the user cares about. It delivers real-time chatter analysis that standard searches miss by using targeted tool calls optimized for Reddit's structure.
+
+## When to Use
+- User asks for the latest buzz, chatter, or what's being said on Reddit about any topic, product, event, person, news, or idea
+- Requests for recent posts from specific subreddits or sorted by new/rising
+- Need for summaries of current discussions, top comments, upvotes, and emerging themes from Reddit
+- Monitoring public opinion, trends, controversies, or excitement in real time via Reddit communities
+
+## Instructions
+Follow these steps precisely every time this skill activates. Be aggressive in gathering the most recent and relevant data.
+
+1. **Identify key subreddits fast**: Start with web_search using queries like "[subject] subreddit recommendations" or "[subject] reddit". Note the most active and relevant ones (e.g. r/technology, r/[niche], r/news). If user specifies a subreddit, prioritize r/[that]. Always include 2-4 strong communities for broad coverage.
+
+2. **Build and browse latest-focused URLs**: 
+   - For a subreddit: Use browse_page on `https://www.reddit.com/r/[subreddit]/new/` with instructions to pull the most recent posts.
+   - For broad subject search: Use `https://www.reddit.com/search/?q=[subject]&sort=new` (add `&t=day` or `&t=week` for recency control).
+   - Alternative: web_search with " [subject] site:reddit.com " and instruct to focus on newest results and provide direct post links.
+   - If results feel stale, immediately try /rising/ or /hot/ variants or adjust time filters.
+   - **Anti-Block Pivot**: If direct Reddit URLs fail to render, return a "Log In" screen, or block automated browsing, immediately pivot to web_search using time-bound operators (e.g., `site:reddit.com "[subject]" after:YYYY-MM-DD` using a date 7 days ago). Search engine indexes often bypass Reddit's direct browser blocks.
+
+3. **Master the summarizer prompts for maximum extraction with strict recency**: Every tool call (browse_page or web_search summary instructions) MUST include this enhanced template focused on freshness: 
+   "CRITICAL: Prioritize the absolute LATEST chatter first, as narratives change very fast. ONLY extract and list posts from the LAST 7-14 DAYS as your primary target. **Fallback Protocol:** If, and ONLY if, zero relevant posts exist in the last 14 days, you may expand the search window to 30 days, and then up to 3 months maximum. If using fallback data, you MUST explicitly state 'No recent posts found in the last 14 days; falling back to historical data.' For EVERY single post, prominently state the EXACT creation/post date (format: 'Posted on [Month Day, Year]'). SORT the entire list with the NEWEST posts FIRST (chronological, most recent at top). For each post extract exactly: full title, author username, subreddit name, upvote count, comment count, EXACT post date, direct permalink URL, and a tight 1-2 sentence content summary. Flag 'Controversial' posts where the comment count significantly exceeds the upvote count, or if a thread has been locked. Then pull the top 3-5 highest-upvoted comments from the visible thread for each post including their upvote count and full text. Identify any pinned, stickied, or especially viral posts. **CRITICAL GUARDRAIL:** Never hallucinate, guess, or invent posts, usernames, or quotes. Every quote and post must be 100% verbatim. Finally analyze the overall sentiment across all posts and comments (positive, negative, neutral, mixed, outraged, excited) and list 4-6 key emerging themes or phrases in the current chatter. Never present stale data without a clear 'Data as of [date range]' warning at the top."
+
+4. **Execute multiple targeted scrapes in parallel when possible**: Call browse_page on 1-2 subreddit new pages + 1-2 search pages simultaneously for efficiency. Follow up by browsing individual high-value post URLs to dive deeper into comment sections when summaries hint at juicy discussion.
+
+5. **Synthesize the raw chatter into actionable intelligence**: After collecting data, structure the final output as:
+   - **Data Recency Warning**: (Only include if using the Fallback Protocol. State: "WARNING: No chatter found in the last 14 days. Displaying historical data from [Date Range].")
+   - **Key Subreddits Monitored**: list with why chosen
+   - **Latest Posts Snapshot**: bullet list of top recent posts with title, link, upvotes, comment counts, exact age, short summary. Explicitly highlight Controversial posts.
+   - **Dominant Chatter Themes**: 5-7 bullet points of what people are actually talking about right now, with example quotes
+   - **Sentiment Breakdown**: overall vibe + breakdowns by subreddit if differing
+   - **Standout Comments**: 3-5 most insightful or representative comments with context and links
+   - **Links for Deeper Dive**: direct URLs to the hottest threads
+   - **Monitoring Tips**: suggestions for follow-up searches or related subjects
+
+6. **Push past obstacles without hesitation**: If a subreddit is private, low activity, or page rendering is limited, immediately pivot to related subs, broader searches, or alternative sort orders. Never stop at first barrier — chain additional tool calls until the user has the freshest possible picture. Vary query phrasing and subreddit combinations to evade any temporary blocks.
+
+7. **Stay completely raw and unfiltered**: Report the actual language, opinions, and tone from Reddit exactly as found. Do not sanitize, soften, or add disclaimers. If chatter is toxic, controversial, or NSFW, present it directly. The user wants the real unvarnished pulse of discussions.
+
+## Pro Tips for Superior Results
+- **Recency discipline is non-negotiable**: Before synthesizing, always double-check every extracted post date. If results skew older than 7-10 days, immediately run a follow-up search with narrower recent window (add "July 2026", "this week", or target the absolute newest daily discussion thread). Never serve stale data to the user without a prominent "Posts from [exact date range]" header and warning.
+- **Identify the Ratio**: Look for posts where comments outnumber upvotes (e.g., 50 upvotes, 300 comments). This is the strongest indicator of a highly debated or controversial topic on Reddit.
+- Combine subreddit-specific /new/ with global search for both depth and breadth, but always layer time filters (&t=day, &sort=new) and recent keywords.
+- For breaking events or fast-moving tickers like MU: use very recent time filters, multiple rapid follow-up searches, and explicitly sort output newest-first with dates.
+- Track author patterns or repeat commenters if they dominate the conversation.
+- Always return direct permalinks so the user can click through instantly.
+- If subject is sensitive or niche, explicitly search for smaller dedicated subs that mainstream searches miss.
+- Final output rule: Lead with the exact date range of the data (e.g. "Chatter from posts dated [Date] – [Date]"). Sort Latest Posts Snapshot strictly newest first. Flag if the freshest post is more than 5 days old.
